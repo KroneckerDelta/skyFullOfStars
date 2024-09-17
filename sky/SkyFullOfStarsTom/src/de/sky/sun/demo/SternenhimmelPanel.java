@@ -27,7 +27,7 @@ class SternenhimmelPanel extends JPanel {
 			var x = random.nextInt(Sternenhimmel.BREITE);
 			var y = random.nextInt(Sternenhimmel.HOEHE);
 			var groesse = random.nextInt(3) + 1;
-			stars.add(new Star(x, y, groesse));
+			stars.add(new Star(x, y, groesse,Sternenhimmel.BREITE));
 		}
 	}
 
@@ -36,5 +36,7 @@ class SternenhimmelPanel extends JPanel {
 		super.paintComponent(g);
 		this.setBackground(Color.BLACK);
 		stars.forEach(s -> s.draw(g));
+		stars.forEach(s-> s.move());
+		
 	}
 }
