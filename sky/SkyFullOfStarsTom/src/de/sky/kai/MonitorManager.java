@@ -2,7 +2,6 @@ package de.sky.kai;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -13,43 +12,6 @@ import java.util.Map;
  * @author Kai Fabian
  */
 public class MonitorManager {
-
-	/**
-	 * 
-	 */
-	static class MonitorImpl extends Frame implements Monitor {
-
-		private static final long serialVersionUID = 3551071724718610914L;
-		private GraphicsDevice gd = null;
-
-		public MonitorImpl(GraphicsDevice gd) {
-			this.gd = gd;
-		}
-
-		@Override
-		public void switchToFullScreen() {
-			setUndecorated(true);
-			gd.setFullScreenWindow(this);
-			createBufferStrategy(2);
-		}
-
-		@Override
-		public void destroy() {
-			gd.setFullScreenWindow(null);
-			dispose();
-		}
-
-		@Override
-		public Graphics acquireGraphics() {
-			return getBufferStrategy().getDrawGraphics();
-		}
-
-		@Override
-		public void releaseGraphics() {
-			getBufferStrategy().show();
-			getBufferStrategy().getDrawGraphics().dispose();
-		}
-	};
 
 	private static final String IDPREFIX = "\\Display";
 	private static MonitorManager instance = null;
@@ -63,7 +25,7 @@ public class MonitorManager {
 	/**
 	 * @return
 	 */
-	private static synchronized MonitorManager getInstance() {
+	public static synchronized MonitorManager getInstance() {
 		if (instance == null) {
 			MonitorManager mm = new MonitorManager();
 
@@ -89,41 +51,98 @@ public class MonitorManager {
 	}
 
 	/**
-	 * Zeigt auf allen angeschlossenen Monitoren ihre ID an, ueber die sie
-	 * angesprochen werden koennen.
-	 * 
-	 * @param milliseconds Wieviele Millisekunden das Testbild angezeigt werden
-	 *                     soll.
+	 * @param g
+	 * @param fontSmall
+	 * @param txt
+	 * @param x
+	 * @param y
+	 * @param c1
+	 * @param c2
 	 */
-	public static void test(int milliseconds) {
+	private void showText(Graphics g, Font font, String txt, int x, int y, Color c1, Color c2) {
+		g.setFont(font);
+
+		g.setColor(c1);
+		g.drawString(txt, x, y);
+
+//		g.setColor(Color.WHITE);
+//		g.drawString(txt,  x+2, y+2);
+
+		g.setColor(c2);
+		g.drawString(txt, x + 1, y + 1);
+	}
+
+	/**
+	 * Liefert einen konkreten Monitor zurueck. TODO leider konnte ich bisher keine
+	 * bessere Stelle finden, um die Groesse des Monitors zu spezifizieren. Ein
+	 * mehrfacher Aufruf dieser Methode ueberschreibt jedesmal die Groesse.
+	 * 
+	 * @param id           Der interne Index des Monitors. Kann ueber den Aufruf der
+	 *                     Methode {@link MonitorManager#test(int)} ermittelt
+	 *                     werden.
+	 * @param physWidthMM  Breite der Anzeigenflaeche in Millimetern.
+	 * @param physHeightMM Hoehe der Anzeigenflaeche in Millimetern.
+	 * @return
+	 */
+	public Monitor getMonitor(int id, int physWidthMM, int physHeightMM) {
+		MonitorImpl m = monitorMap.get(Integer.valueOf(id));
+		m.setPhysicalHeight(physHeightMM);
+		m.setPhysicalWidth(physWidthMM);
+		return m;
+	}
+
+	/**
+	 * Zeigt auf allen angeschlossenen Monitoren ihre ID an, ueber die sie
+	 * angesprochen werden koennen. TODO die physikalische Groesse eines Monitors
+	 * ist erst einmal unbekannt (0 mm), solange bis man via
+	 * {@link MonitorManager#getMonitor(int, int, int)} den konkreten Monitor
+	 * angefordert hat.
+	 * 
+	 * Danach beendet sich das Programm mittels System.exit(42).
+	 * 
+	 * @param displayDurationMs Wieviele Millisekunden das Testbild angezeigt werden
+	 *                          soll.
+	 */
+	public void test(int displayDurationMs) {
 		MonitorManager mm = getInstance();
-		Font font = new Font("Verdana", Font.BOLD, 64);
+		Font fontBig = new Font("Courier New", Font.BOLD, 64);
+		Font fontSmall = new Font("Courier New", Font.BOLD, 32);
 		for (Map.Entry<Integer, MonitorImpl> kv : mm.monitorMap.entrySet()) {
 			Integer id = kv.getKey();
-			MonitorImpl monitor = kv.getValue();
+			Monitor/* Impl */ monitor = kv.getValue();
 
 			monitor.switchToFullScreen();
 
 			Graphics g = monitor.acquireGraphics();
-			g.setFont(font);
-			g.setColor(Color.BLUE);
-			g.drawString("Display #" + id, 100, 100);
-			monitor.releaseGraphics();
+//			DisplayMode m = monitor.gd.getDisplayMode();
+
+			String str = "Display #" + id;
+			mm.showText(g, fontBig, str, 100, 100, Color.BLACK, Color.RED);
+
+			str = "Res.: " + monitor.getPixelWidth() + " x " + monitor.getPixelHeight();
+			mm.showText(g, fontSmall, str, 100, 200, Color.BLACK, Color.BLUE);
+
+			str = "Size: " + (monitor.getPhysicalHeight() == 0 ? "undefined"
+					: monitor.getPhysicalWidth() + " x " + monitor.getPhysicalHeight() + " mm");
+			mm.showText(g, fontSmall, str, 100, 250, Color.BLACK, Color.BLUE);
+
+			str = "Spec: " + monitor.getBitsPerPixel() + " bpp @ " + monitor.getRefreshRate() + " Hz";
+			mm.showText(g, fontSmall, str, 100, 300, Color.BLACK, Color.BLUE);
+
+			monitor.displayGraphics();
 		}
 
 		try {
-			Thread.sleep(milliseconds);
+			Thread.sleep(displayDurationMs);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
 
 		for (MonitorImpl monitor : mm.monitorMap.values()) {
-			monitor.gd.setFullScreenWindow(null);
+			monitor.getGraphicsDevice().setFullScreenWindow(null);
 			monitor.dispose();
 		}
-	}
 
-	public static void main(String[] args) {
-		MonitorManager.test(5555);
+		System.exit(42);
 	}
 }
