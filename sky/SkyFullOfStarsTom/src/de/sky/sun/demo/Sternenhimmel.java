@@ -32,7 +32,8 @@ public class Sternenhimmel extends JFrame {
 				while (true) {
 					try {
 						repaint();
-						Thread.sleep(25);
+						Thread.sleep(100                     
+								);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

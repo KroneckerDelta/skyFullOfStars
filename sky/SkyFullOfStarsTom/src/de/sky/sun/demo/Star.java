@@ -7,8 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Star {
 
-	private int x;
-	private int y;
+	protected int x;
+	protected int y;
 	private int z;
 	private int groesse;
 
@@ -26,14 +26,18 @@ public class Star {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.WHITE);
+		chooseColor(g);
 		g.fillOval(x, y, groesse, groesse);
 
 	}
 
+	protected void chooseColor(Graphics g) {
+		g.setColor(Color.WHITE);
+	}
+
 	public void move() {
 
-		this.x = (this.x + (this.z/2));
+		this.x = ((this.x + (this.z/2)))/1 ;
 		if (this.x >=frontier ) {
 			this.x = 0;
 		}

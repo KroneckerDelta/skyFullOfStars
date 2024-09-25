@@ -23,12 +23,15 @@ class SternenhimmelPanel extends JPanel {
 
 	public SternenhimmelPanel() {
 		
+//		stars.add(new Nebel(100, 20, 0, 0, this));
 		for (int i = 0; i < ANZAHL_STERNE; i++) {
 			var x = random.nextInt(Sternenhimmel.BREITE);
 			var y = random.nextInt(Sternenhimmel.HOEHE);
 			var groesse = random.nextInt(3) + 1;
 			stars.add(new Star(x, y, groesse,Sternenhimmel.BREITE));
 		}
+		stars.add(new Sun(100, 100, Sternenhimmel.BREITE));
+		stars.add(new Nebel(400, 200, 0, 0, this));
 	}
 
 	@Override
