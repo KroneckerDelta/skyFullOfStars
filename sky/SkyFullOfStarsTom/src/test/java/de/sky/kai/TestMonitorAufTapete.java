@@ -27,7 +27,7 @@ class TestMonitorAufTapete {
 
 		assertFalse(tapete.isVisible(200, 489));
 	}
-	
+
 	@Test
 	void tpIsOnM1() throws Exception {
 
@@ -35,9 +35,10 @@ class TestMonitorAufTapete {
 		Monitor m1 = tapete.getMonitore().get(0).getMonitor();
 		assertEquals(m1, tapete.whichMonitor(200, 500));
 	}
+
 	@Test
 	void tpIsOnM2() throws Exception {
-		
+
 		Tapete tapete = initMonitore();
 		Monitor m1 = tapete.getMonitore().get(1).getMonitor();
 		assertEquals(m1, tapete.whichMonitor(1000, 700));

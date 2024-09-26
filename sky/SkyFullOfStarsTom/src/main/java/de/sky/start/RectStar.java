@@ -23,7 +23,7 @@ public class RectStar {
 
 	public void draw(Graphics g, int px, int py, int pWidth, int pHeight) {
 		g.setColor(Color.white);
-		g.fillRect(px, py,pWidth, pHeight);
+		g.fillRect(px, py, pWidth, pHeight);
 
 	}
 }

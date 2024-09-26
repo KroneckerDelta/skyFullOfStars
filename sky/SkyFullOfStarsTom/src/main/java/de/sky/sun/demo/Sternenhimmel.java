@@ -21,7 +21,7 @@ public class Sternenhimmel extends JFrame {
 		setResizable(false);
 		comp = new SternenhimmelPanel();
 		add(comp);
-		
+
 	}
 
 	public void start() {
@@ -32,8 +32,7 @@ public class Sternenhimmel extends JFrame {
 				while (true) {
 					try {
 						repaint();
-						Thread.sleep(100                     
-								);
+						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 
 /**
- * @author Kai Fabian 
+ * @author Kai Fabian
  */
 class MonitorImpl extends Frame implements Monitor {
 
@@ -23,7 +23,7 @@ class MonitorImpl extends Frame implements Monitor {
 
 	@Override
 	public void switchToFullScreen() {
-        setIgnoreRepaint(true);
+		setIgnoreRepaint(true);
 		setUndecorated(true);
 		gd.setFullScreenWindow(this);
 		createBufferStrategy(2);
@@ -63,7 +63,8 @@ class MonitorImpl extends Frame implements Monitor {
 
 	public void setPhysicalWidth(int w) {
 		physWidth = w;
-		pixelPerMillimeterX = getPixelWidth() / physWidth;
+		pixelPerMillimeterX = (float) getPixelWidth() / (float) physWidth;
+		System.out.println("X :> " + pixelPerMillimeterX);
 	}
 
 	@Override
@@ -73,7 +74,8 @@ class MonitorImpl extends Frame implements Monitor {
 
 	public void setPhysicalHeight(int h) {
 		physHeight = h;
-		pixelPerMillimeterY = getPixelHeight() / physHeight;
+		pixelPerMillimeterY = (float) getPixelHeight() / (float) physHeight;
+		System.out.println("Y :> " + pixelPerMillimeterY);
 	}
 
 	@Override
@@ -85,7 +87,7 @@ class MonitorImpl extends Frame implements Monitor {
 	public int getRefreshRate() {
 		return gd.getDisplayMode().getRefreshRate();
 	}
-	
+
 	GraphicsDevice getGraphicsDevice() {
 		return gd;
 	}

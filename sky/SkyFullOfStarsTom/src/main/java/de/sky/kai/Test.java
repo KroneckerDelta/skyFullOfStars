@@ -23,7 +23,7 @@ public class Test {
 
 //		Monitor m1 = mm.getMonitor(2, 1920, 1200); // disp_eizo_013
 //		Monitor m2 = mm.getMonitor(0, 800,1280); // disp_eizo_307
-		
+
 		// TimeLoop nutzen, um einen gleichmaessigen Durchlauf der Hauptschleife zu
 		// erzielen
 		TimeLoop loop = new TimeLoop(false);
@@ -32,7 +32,7 @@ public class Test {
 		m.switchToFullScreen();
 
 		// Dies ist die Hauptschleife des Spieles / Programmes
-	
+
 		for (int i = 0; i < 1000; i++) {
 			// Vom Monitor die Zeichenflaeche geben lassen
 			Graphics g = m.acquireGraphics();
@@ -44,7 +44,7 @@ public class Test {
 			g.setFont(new Font("Courier New", Font.BOLD, 32));
 			g.setColor(Color.RED);
 			g.drawString("Ahuga", 100 + i, 200);
-			
+
 			// Zeichnen beendet, jetzt Zeichenflaeche anzeigen
 			m.displayGraphics();
 

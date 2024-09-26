@@ -19,10 +19,6 @@ public class MainLoop {
 
 	}
 
-	private void loop() {
-
-	}
-
 	/**
 	 * Läuft so nur, wenn man drei Monitore hat!
 	 * 
@@ -35,10 +31,12 @@ public class MainLoop {
 
 		Tapete tapete = new Tapete(1600, 730);
 
-		Monitor m1 = mm.getMonitor(2, 520, 325); // disp_eizo_013
-		Monitor m2 = mm.getMonitor(0, 325, 520); // disp_eizo_307
+		Monitor m1 = mm.getMonitor(2, 518, 324);
+//		Monitor m1 = mm.getMonitor(2, 324, 518);
+		Monitor m2 = mm.getMonitor(0, 324, 518);
 
-		tapete.addMonitorOnPosition(m1, 175, 240);
+//		tapete.addMonitorOnPosition(m1, 175, 240);
+		tapete.addMonitorOnPosition(m1, 215, 120);
 		tapete.addMonitorOnPosition(m2, 910, 120);
 
 		// TimeLoop nutzen, um einen gleichmaessigen Durchlauf der Hauptschleife zu
@@ -49,8 +47,10 @@ public class MainLoop {
 //		Star s2 = new Star(0, 500, 100, 1600);
 
 		List<RectStar> objects = new ArrayList<RectStar>();
-		objects.add(new RectStar(400, 400, 100, 100));
-		objects.add(new RectStar(1000, 400, 100, 100));
+//		objects.add(new RectStar(400, 400, 100, 100));
+//		objects.add(new RectStar(1000, 400, 100, 100));
+		objects.add(new RectStar(400, 150, 100, 100));
+		objects.add(new RectStar(400, 300, 100, 100));
 
 		Map<MonitorPosition, List<RectStar>> toDrawMap = new HashMap<>();
 		tapete.getMonitore().forEach(m -> {
@@ -69,29 +69,24 @@ public class MainLoop {
 			}
 			for (MonitorPosition mp : toDrawMap.keySet()) {
 				Monitor m = mp.getMonitor();
-				Graphics g =  m.acquireGraphics();
+				Graphics g = m.acquireGraphics();
 				// Den gewuenschten Inhalt erzeugen
 				g.setColor(Color.BLACK);
 				g.fillRect(0, 0, m.getPixelWidth(), m.getPixelHeight());
 				List<RectStar> toDraw = toDrawMap.get(mp);
 
-				toDraw.forEach(star -> 
-				star.draw(g, 
-						tapete.calcX( mp, star), 
-						tapete.calcY( mp, star), 
-						(int)m.getPixelPerMillimeterX()*star.getWidth(), 
-						(int)m.getPixelPerMillimeterY()*star.getHeight()));
+				toDraw.forEach(star -> star.draw(g, tapete.calcX(mp, star), tapete.calcY(mp, star),
+						(int) ((float) m.getPixelPerMillimeterX() * (float) star.getWidth()),
+						(int) ((float) m.getPixelPerMillimeterY() * (float) star.getHeight())));
 				m.displayGraphics();
-				
+
 			}
 
-//			objects.forEach(o -> o.setTapeteX(o.getTapeteX()+1));
-			
-			loop.sync(100);
-			
+			objects.forEach(o -> o.setTapeteX(o.getTapeteX() + 1));
+
+			loop.sync(10);
+
 		}
 	}
-
-
 
 }

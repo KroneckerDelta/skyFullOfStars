@@ -37,11 +37,11 @@ public class Star {
 
 	public void move() {
 
-		this.x = ((this.x + (this.z/2)))/1 ;
-		if (this.x >=frontier ) {
+		this.x = ((this.x + (this.z / 2))) / 1;
+		if (this.x >= frontier) {
 			this.x = 0;
 		}
-			
+
 	}
 
 	@Override

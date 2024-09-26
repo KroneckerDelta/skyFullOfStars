@@ -57,10 +57,11 @@ public class Tapete {
 	}
 
 	public int calcX(MonitorPosition mp, RectStar star) {
-		
+
 		Monitor m = mp.getMonitor();
-		int result = calculateMonitorPixel(star.getTapeteX(), mp.getLinksObenX(), m.getPhysicalWidth(), m.getPixelWidth());
-		
+		int result = calculateMonitorPixel(star.getTapeteX(), mp.getLinksObenX(), m.getPhysicalWidth(),
+				m.getPixelWidth());
+
 //		float startX = star.getTapeteX() - mp.getLinksObenX();
 //		float widthFactor = (float) m.getPhysicalWidth() / (float)m.getPixelWidth();
 //		
@@ -69,23 +70,22 @@ public class Tapete {
 
 		return (int) result;
 	}
-	
-	public int calculateMonitorPixel( int objectTapete, int monitorstart, float physical, float pixel) {
+
+	public int calculateMonitorPixel(int objectTapete, int monitorstart, float physical, float pixel) {
 		float start = objectTapete - monitorstart;
-		float widthFactor = physical /pixel;
-		
+		float widthFactor = physical / pixel;
+
 		float px = start / widthFactor;
 
 		return (int) px;
 	}
-	
-	
-	
+
 	public int calcY(MonitorPosition mp, RectStar star) {
 		Monitor m = mp.getMonitor();
-		
-		int result = calculateMonitorPixel(star.getTapeteY(), mp.getLinksObenY(), m.getPhysicalHeight(), m.getPixelHeight());
-		
+
+		int result = calculateMonitorPixel(star.getTapeteY(), mp.getLinksObenY(), m.getPhysicalHeight(),
+				m.getPixelHeight());
+
 //		float py = (star.getTapeteY() - mp.getLinksObenY()) / (float) ((float)m.getPhysicalHeight() / (float)m.getPixelHeight());
 		return result;
 	}

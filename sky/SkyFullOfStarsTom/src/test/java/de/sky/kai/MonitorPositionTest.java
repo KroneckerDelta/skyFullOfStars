@@ -72,31 +72,31 @@ class MonitorPositionTest {
 	// #############################################
 	// TP Inside Tests Oben/Unten
 	// #############################################
-	
-	
-	
+
 	@Test
 	void tpIsTooUp() throws Exception {
 		MonitorPosition monitorPosition = initMonitor();
 		assertFalse(monitorPosition.monitorContainsTapetenPunkt(500, 9));
 	}
+
 	@Test
 	void tpIsUpIn() throws Exception {
 		MonitorPosition monitorPosition = initMonitor();
 		assertTrue(monitorPosition.monitorContainsTapetenPunkt(500, 10));
 	}
+
 	@Test
 	void tpIsTooDeep() throws Exception {
 		MonitorPosition monitorPosition = initMonitor();
 		assertFalse(monitorPosition.monitorContainsTapetenPunkt(500, 2010));
 	}
+
 	@Test
 	void tpIsDeepIn() throws Exception {
 		MonitorPosition monitorPosition = initMonitor();
 		assertTrue(monitorPosition.monitorContainsTapetenPunkt(500, 2009));
 	}
-	
-	
+
 	private MonitorPosition initMonitor() {
 		MonitorManager mm = MonitorManager.getInstance();
 		MonitorPosition monitorPosition = new MonitorPosition(mm.getMonitor(0, BREITE, HOEHE), START_X, START_Y);

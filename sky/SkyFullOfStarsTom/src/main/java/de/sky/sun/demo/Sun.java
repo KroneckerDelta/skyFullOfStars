@@ -18,9 +18,9 @@ public class Sun extends Star {
 		g.setColor(Color.yellow);
 		;
 	}
-	
+
 	@Override
-		public void move() {
-			this.x++;
-		}
+	public void move() {
+		this.x++;
+	}
 }

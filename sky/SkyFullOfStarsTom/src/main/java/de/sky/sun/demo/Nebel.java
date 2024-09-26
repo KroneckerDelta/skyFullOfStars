@@ -8,29 +8,27 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class Nebel extends Star{
+public class Nebel extends Star {
 
 	BufferedImage img = null;
 	private JPanel panel;
-	
-	
+
 	public Nebel(int x, int y, int groesse, int frontier, JPanel panel) {
 		super(x, y, groesse, frontier);
 		// TODO Auto-generated constructor stub
 		this.panel = panel;
 		loadImage();
 	}
-	
-	
+
 	private void loadImage() {
 		try {
-		    img = ImageIO.read(new File("src/main/resources/nebel2.jpg"));
-		    
+			img = ImageIO.read(new File("src/main/resources/nebel2.jpg"));
+
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
