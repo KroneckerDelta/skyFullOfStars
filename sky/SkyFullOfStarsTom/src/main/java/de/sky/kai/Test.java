@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import de.sky.sun.demo.Nebel;
+import de.sky.sun.demo.Star;
+
 public class Test {
 
 	public static void main(String[] args) throws InterruptedException {
@@ -11,7 +14,7 @@ public class Test {
 		// Alles beginnt mit dem MonitorManager
 		MonitorManager mm = MonitorManager.getInstance();
 
-		mm.test(5555); // Anzeige aller Monitore, danach exit
+//		mm.test(5555); // Anzeige aller Monitore, danach exit
 
 		// Zu nutzenden Monitor angeben
 		Monitor m = mm.getMonitor(0, 800, 340); // god_disp_190
@@ -29,6 +32,7 @@ public class Test {
 		m.switchToFullScreen();
 
 		// Dies ist die Hauptschleife des Spieles / Programmes
+	
 		for (int i = 0; i < 1000; i++) {
 			// Vom Monitor die Zeichenflaeche geben lassen
 			Graphics g = m.acquireGraphics();
@@ -40,7 +44,7 @@ public class Test {
 			g.setFont(new Font("Courier New", Font.BOLD, 32));
 			g.setColor(Color.RED);
 			g.drawString("Ahuga", 100 + i, 200);
-
+			
 			// Zeichnen beendet, jetzt Zeichenflaeche anzeigen
 			m.displayGraphics();
 

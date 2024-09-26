@@ -32,7 +32,7 @@ public class Star {
 	}
 
 	protected void chooseColor(Graphics g) {
-		g.setColor(Color.WHITE);
+		g.setColor(Color.ORANGE);
 	}
 
 	public void move() {

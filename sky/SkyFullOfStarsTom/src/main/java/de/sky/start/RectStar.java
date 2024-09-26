@@ -1,0 +1,28 @@
+package de.sky.start;
+
+import java.awt.Graphics;
+
+import lombok.Data;
+
+@Data
+public class RectStar {
+
+	private int tapeteX;
+	private int tapeteY;
+	private int width;
+	private int height;
+
+	public RectStar(int tapeteX, int tapeteY, int width, int height) {
+		this.tapeteX = tapeteX;
+		this.tapeteY = tapeteY;
+		this.width = width;
+		this.height = height;
+		// TODO Auto-generated constructor stub
+	}
+
+	public void draw(Graphics g, int px, int py) {
+		
+		g.fillRect(px, py,width, height);
+
+	}
+}
