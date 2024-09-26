@@ -54,13 +54,13 @@ class MonitorPositionTest {
 	@Test
 	public void tpIsLeftInside() throws Exception {
 		MonitorPosition monitorPosition = initMonitor();
-		assertTrue(monitorPosition.monitorContainsTapetenPunkt(6, 1900));
+		assertTrue(monitorPosition.monitorContainsTapetenPunkt(5, 1900));
 	}
 
 	@Test
 	public void tpIsTooRight() throws Exception {
 		MonitorPosition monitorPosition = initMonitor();
-		assertFalse(monitorPosition.monitorContainsTapetenPunkt(1006, 1900));
+		assertFalse(monitorPosition.monitorContainsTapetenPunkt(1005, 1900));
 	}
 
 	@Test
@@ -88,7 +88,7 @@ class MonitorPositionTest {
 	@Test
 	void tpIsTooDeep() throws Exception {
 		MonitorPosition monitorPosition = initMonitor();
-		assertFalse(monitorPosition.monitorContainsTapetenPunkt(500, 2011));
+		assertFalse(monitorPosition.monitorContainsTapetenPunkt(500, 2010));
 	}
 	@Test
 	void tpIsDeepIn() throws Exception {

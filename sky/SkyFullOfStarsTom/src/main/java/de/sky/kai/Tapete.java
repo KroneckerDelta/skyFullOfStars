@@ -40,7 +40,7 @@ public class Tapete {
 	 * @param j
 	 */
 	public Monitor whichMonitor(int vonLinks, int vonOben) {
-
+		
 		return this.monitore.get(0).getMonitor();
 	}
 

@@ -27,10 +27,10 @@ public class MonitorPosition {
 	 */
 	public boolean monitorContainsTapetenPunkt(int tpX, int tpY) {
 		// 
-		if (tpX< linksObenX || tpX > rechtsUntenX) {
+		if (tpX< linksObenX || tpX >= rechtsUntenX) {
 			return false;
 		}
-		if (tpY < linksObenY || tpY > rechtsUntenY ) {
+		if (tpY < linksObenY || tpY >= rechtsUntenY ) {
 			return false;
 		}
 		
