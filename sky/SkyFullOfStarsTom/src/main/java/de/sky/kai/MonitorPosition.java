@@ -19,5 +19,21 @@ public class MonitorPosition {
 		this.rechtsUntenX = vonLinks + this.monitor.getPhysicalWidth();
 		this.rechtsUntenY = vonOben + this.monitor.getPhysicalHeight();
 	}
-
+	/**
+	 * Prüft, ob ein TapetenPunkt auf diesen Monitor angezeigt wird.
+	 * @param tpX
+	 * @param tpY
+	 * @return
+	 */
+	public boolean monitorContainsTapetenPunkt(int tpX, int tpY) {
+		// 
+		if (tpX< linksObenX || tpX > rechtsUntenX) {
+			return false;
+		}
+		if (tpY < linksObenY || tpY > rechtsUntenY ) {
+			return false;
+		}
+		
+		return true;
+	}
 }
