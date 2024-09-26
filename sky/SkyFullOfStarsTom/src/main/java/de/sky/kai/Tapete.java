@@ -2,9 +2,6 @@ package de.sky.kai;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import de.sky.start.RectStar;
 import lombok.Data;
@@ -60,16 +57,37 @@ public class Tapete {
 	}
 
 	public int calcX(MonitorPosition mp, RectStar star) {
+		
 		Monitor m = mp.getMonitor();
-		float px = (star.getTapeteX() - mp.getLinksObenX()) / (float) ((float) m.getPhysicalWidth() / (float)m.getPixelWidth());
+		int result = calculateMonitorPixel(star.getTapeteX(), mp.getLinksObenX(), m.getPhysicalWidth(), m.getPixelWidth());
+		
+//		float startX = star.getTapeteX() - mp.getLinksObenX();
+//		float widthFactor = (float) m.getPhysicalWidth() / (float)m.getPixelWidth();
+//		
+////		float px = (star.getTapeteX() - mp.getLinksObenX()) / (float) ((float) m.getPhysicalWidth() / (float)m.getPixelWidth());
+//		float px = startX / widthFactor;
+
+		return (int) result;
+	}
+	
+	public int calculateMonitorPixel( int objectTapete, int monitorstart, float physical, float pixel) {
+		float start = objectTapete - monitorstart;
+		float widthFactor = physical /pixel;
+		
+		float px = start / widthFactor;
 
 		return (int) px;
 	}
-
+	
+	
+	
 	public int calcY(MonitorPosition mp, RectStar star) {
 		Monitor m = mp.getMonitor();
-		float py = (star.getTapeteY() - mp.getLinksObenY()) / (float) ((float)m.getPhysicalHeight() / (float)m.getPixelHeight());
-		return (int)py;
+		
+		int result = calculateMonitorPixel(star.getTapeteY(), mp.getLinksObenY(), m.getPhysicalHeight(), m.getPixelHeight());
+		
+//		float py = (star.getTapeteY() - mp.getLinksObenY()) / (float) ((float)m.getPhysicalHeight() / (float)m.getPixelHeight());
+		return result;
 	}
 
 }

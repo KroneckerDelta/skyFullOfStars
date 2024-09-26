@@ -46,4 +46,8 @@ public interface Monitor {
 	public int getBitsPerPixel();
 
 	public int getRefreshRate();
+
+	public float getPixelPerMillimeterX();
+
+	public float getPixelPerMillimeterY();
 }

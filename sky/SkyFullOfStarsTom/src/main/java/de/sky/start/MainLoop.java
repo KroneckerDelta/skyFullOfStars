@@ -49,8 +49,8 @@ public class MainLoop {
 //		Star s2 = new Star(0, 500, 100, 1600);
 
 		List<RectStar> objects = new ArrayList<RectStar>();
-		objects.add(new RectStar(180, 250, 100, 100));
-		objects.add(new RectStar(1000, 200, 100, 100));
+		objects.add(new RectStar(400, 400, 100, 100));
+		objects.add(new RectStar(1000, 400, 100, 100));
 
 		Map<MonitorPosition, List<RectStar>> toDrawMap = new HashMap<>();
 		tapete.getMonitore().forEach(m -> {
@@ -75,12 +75,17 @@ public class MainLoop {
 				g.fillRect(0, 0, m.getPixelWidth(), m.getPixelHeight());
 				List<RectStar> toDraw = toDrawMap.get(mp);
 
-				toDraw.forEach(star -> star.draw(g, tapete.calcX( mp, star), tapete.calcY( mp, star)));
+				toDraw.forEach(star -> 
+				star.draw(g, 
+						tapete.calcX( mp, star), 
+						tapete.calcY( mp, star), 
+						(int)m.getPixelPerMillimeterX()*star.getWidth(), 
+						(int)m.getPixelPerMillimeterY()*star.getHeight()));
 				m.displayGraphics();
 				
 			}
 
-			objects.forEach(o -> o.setTapeteX(o.getTapeteX()+1));
+//			objects.forEach(o -> o.setTapeteX(o.getTapeteX()+1));
 			
 			loop.sync(100);
 			

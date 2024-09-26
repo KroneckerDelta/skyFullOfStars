@@ -21,9 +21,9 @@ public class RectStar {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void draw(Graphics g, int px, int py) {
+	public void draw(Graphics g, int px, int py, int pWidth, int pHeight) {
 		g.setColor(Color.white);
-		g.fillRect(px, py,width, height);
+		g.fillRect(px, py,pWidth, pHeight);
 
 	}
 }

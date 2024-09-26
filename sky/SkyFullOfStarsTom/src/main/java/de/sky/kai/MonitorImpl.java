@@ -14,6 +14,8 @@ class MonitorImpl extends Frame implements Monitor {
 	private GraphicsDevice gd = null;
 	private int physWidth = 0;
 	private int physHeight = 0;
+	private float pixelPerMillimeterX = 0f;
+	private float pixelPerMillimeterY = 0f;
 
 	public MonitorImpl(GraphicsDevice gd) {
 		this.gd = gd;
@@ -61,6 +63,7 @@ class MonitorImpl extends Frame implements Monitor {
 
 	public void setPhysicalWidth(int w) {
 		physWidth = w;
+		pixelPerMillimeterX = getPixelWidth() / physWidth;
 	}
 
 	@Override
@@ -70,6 +73,7 @@ class MonitorImpl extends Frame implements Monitor {
 
 	public void setPhysicalHeight(int h) {
 		physHeight = h;
+		pixelPerMillimeterY = getPixelHeight() / physHeight;
 	}
 
 	@Override
@@ -84,5 +88,15 @@ class MonitorImpl extends Frame implements Monitor {
 	
 	GraphicsDevice getGraphicsDevice() {
 		return gd;
+	}
+
+	@Override
+	public float getPixelPerMillimeterX() {
+		return pixelPerMillimeterX;
+	}
+
+	@Override
+	public float getPixelPerMillimeterY() {
+		return pixelPerMillimeterY;
 	}
 };
