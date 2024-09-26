@@ -17,6 +17,7 @@ public class Tapete {
 
 	/**
 	 * Breite und Höhe in Millimeter
+	 * 
 	 * @param breite
 	 * @param hoehe
 	 */
@@ -27,57 +28,48 @@ public class Tapete {
 
 	public void addMonitorOnPosition(Monitor monitor, int vonLinks, int vonOben) {
 		this.monitore.add(new MonitorPosition(monitor, vonLinks, vonOben));
-		
+
 	}
+
 	/**
 	 * Guckz, ob der Pixel anzeigt werden soll oder nicht.
+	 * 
 	 * @param i
 	 * @param j
 	 */
 	public boolean isVisible(int vonLinks, int vonOben) {
-		return this.monitore.stream().anyMatch( m -> m.monitorContainsTapetenPunkt(vonLinks, vonOben));
-		
+		return this.monitore.stream().anyMatch(m -> m.monitorContainsTapetenPunkt(vonLinks, vonOben));
+
 	}
+
 	/**
 	 * Gibt den Monitor zurück, auf welchen angezeigt werden soll.
+	 * 
 	 * @param i
 	 * @param j
 	 */
-	public Monitor whichMonitor(int vonLinks, int vonOben) {
-		
+	public MonitorPosition whichMonitor(int vonLinks, int vonOben) {
+
 		for (MonitorPosition monitorPosition : monitore) {
 			if (monitorPosition.monitorContainsTapetenPunkt(vonLinks, vonOben)) {
-				return monitorPosition.getMonitor();
+				return monitorPosition;
 			}
 		}
-		
+
 		return null;
 	}
 
-	public List<Monitor> allMonitore() {
-		return this.monitore.stream().map(m -> m.getMonitor()).collect(Collectors.toList());
-		
+	public int calcX(MonitorPosition mp, RectStar star) {
+		Monitor m = mp.getMonitor();
+		float px = (star.getTapeteX() - mp.getLinksObenX()) / (float) ((float) m.getPhysicalWidth() / (float)m.getPixelWidth());
+
+		return (int) px;
 	}
 
-	public int calcX(Monitor m, RectStar star) {
-
-		int px = (star.getTapeteX() - monitorX(m) ) /( m.getPhysicalWidth() / m.getPixelWidth());
-		
-		return px;
-	}
-
-	private int monitorX(Monitor m) {
-		return 0;
-	}
-
-	public int calcY(Monitor m, RectStar star) {
-		int py = (star.getTapeteY() - monitorY(m) ) /( m.getPhysicalHeight() / m.getPixelHeight());
-		return py;
-	}
-
-	private int monitorY(Monitor m) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int calcY(MonitorPosition mp, RectStar star) {
+		Monitor m = mp.getMonitor();
+		float py = (star.getTapeteY() - mp.getLinksObenY()) / (float) ((float)m.getPhysicalHeight() / (float)m.getPixelHeight());
+		return (int)py;
 	}
 
 }

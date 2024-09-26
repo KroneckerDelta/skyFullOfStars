@@ -1,5 +1,6 @@
 package de.sky.start;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import lombok.Data;
@@ -21,7 +22,7 @@ public class RectStar {
 	}
 
 	public void draw(Graphics g, int px, int py) {
-		
+		g.setColor(Color.white);
 		g.fillRect(px, py,width, height);
 
 	}

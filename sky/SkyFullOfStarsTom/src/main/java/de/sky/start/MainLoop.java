@@ -1,5 +1,6 @@
 package de.sky.start;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import de.sky.kai.Monitor;
 import de.sky.kai.MonitorManager;
+import de.sky.kai.MonitorPosition;
 import de.sky.kai.Tapete;
 import de.sky.kai.TimeLoop;
 
@@ -47,29 +49,41 @@ public class MainLoop {
 //		Star s2 = new Star(0, 500, 100, 1600);
 
 		List<RectStar> objects = new ArrayList<RectStar>();
-		objects.add(new RectStar(0, 150, 100, 100));
-		objects.add(new RectStar(0, 400, 100, 100));
+		objects.add(new RectStar(180, 250, 100, 100));
+		objects.add(new RectStar(1000, 200, 100, 100));
 
-		Map<Monitor, List<RectStar>> toDrawMap = new HashMap<>();
-		tapete.allMonitore().forEach(m -> toDrawMap.put(m, new ArrayList<RectStar>()));
+		Map<MonitorPosition, List<RectStar>> toDrawMap = new HashMap<>();
+		tapete.getMonitore().forEach(m -> {
+			m.getMonitor().switchToFullScreen();
+			toDrawMap.put(m, new ArrayList<RectStar>());
+		});
 
 		while (true) {
 			toDrawMap.values().forEach(v -> v.clear());
 
 			for (RectStar rs : objects) {
-				Monitor whichMonitor = tapete.whichMonitor(rs.getTapeteX(), rs.getTapeteY());
+				MonitorPosition whichMonitor = tapete.whichMonitor(rs.getTapeteX(), rs.getTapeteY());
 				if (whichMonitor != null) {
 					toDrawMap.get(whichMonitor).add(rs);
 				}
 			}
-			for (Monitor m : toDrawMap.keySet()) {
-				Graphics g = m.acquireGraphics();
-				List<RectStar> toDraw = toDrawMap.get(m);
+			for (MonitorPosition mp : toDrawMap.keySet()) {
+				Monitor m = mp.getMonitor();
+				Graphics g =  m.acquireGraphics();
+				// Den gewuenschten Inhalt erzeugen
+				g.setColor(Color.BLACK);
+				g.fillRect(0, 0, m.getPixelWidth(), m.getPixelHeight());
+				List<RectStar> toDraw = toDrawMap.get(mp);
 
-				toDraw.forEach(star -> star.draw(g, tapete.calcX( m, star), tapete.calcY( m, star)));
+				toDraw.forEach(star -> star.draw(g, tapete.calcX( mp, star), tapete.calcY( mp, star)));
+				m.displayGraphics();
+				
 			}
 
-			loop.sync(10);
+			objects.forEach(o -> o.setTapeteX(o.getTapeteX()+1));
+			
+			loop.sync(100);
+			
 		}
 	}
 
