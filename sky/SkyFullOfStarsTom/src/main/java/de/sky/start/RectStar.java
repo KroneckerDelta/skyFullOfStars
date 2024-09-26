@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import lombok.Data;
 
 @Data
-public class RectStar {
+public class RectStar implements TapetenOject{
 
 	private int tapeteX;
 	private int tapeteY;
@@ -22,8 +22,14 @@ public class RectStar {
 	}
 
 	public void draw(Graphics g, int px, int py, int pWidth, int pHeight) {
-		g.setColor(Color.white);
+		g.setColor(Color.ORANGE);
 		g.fillRect(px, py, pWidth, pHeight);
 
+	}
+
+	@Override
+	public void move() {
+		setTapeteX(getTapeteX() + 1);
+		
 	}
 }

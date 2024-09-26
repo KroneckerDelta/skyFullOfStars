@@ -38,7 +38,7 @@ class SternenhimmelPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.setBackground(Color.BLACK);
-		stars.forEach(s -> s.draw(g));
+//		stars.forEach(s -> s.draw(g));
 		stars.forEach(s -> s.move());
 
 	}

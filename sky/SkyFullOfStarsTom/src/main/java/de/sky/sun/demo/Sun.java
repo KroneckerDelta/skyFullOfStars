@@ -16,7 +16,7 @@ public class Sun extends Star {
 	protected void chooseColor(Graphics g) {
 
 		g.setColor(Color.yellow);
-		;
+		
 	}
 
 	@Override

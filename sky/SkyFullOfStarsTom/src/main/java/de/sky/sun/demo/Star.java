@@ -5,7 +5,9 @@ import java.awt.Graphics;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Star {
+import de.sky.start.TapetenOject;
+
+public class Star implements TapetenOject{
 
 	protected int x;
 	protected int y;
@@ -25,19 +27,15 @@ public class Star {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void draw(Graphics g) {
-		chooseColor(g);
-		g.fillOval(x, y, groesse, groesse);
 
-	}
 
 	protected void chooseColor(Graphics g) {
-		g.setColor(Color.ORANGE);
+		g.setColor(Color.BLUE);
 	}
 
 	public void move() {
 
-		this.x = ((this.x + (this.z / 2))) / 1;
+		this.x = ((this.x + (this.z / 20))) / 1;
 		if (this.x >= frontier) {
 			this.x = 0;
 		}
@@ -47,6 +45,37 @@ public class Star {
 	@Override
 	public String toString() {
 		return "Star [x=" + x + ", y=" + y + ", z=" + z + ", groesse=" + groesse + ", random=" + random + "]";
+	}
+
+	@Override
+	public void draw(Graphics g, int px, int py, int pWidth, int pHeight) {
+		chooseColor(g);
+		g.fillOval(px, py, pWidth, pHeight);
+		
+	}
+
+	@Override
+	public int getTapeteX() {
+		// TODO Auto-generated method stub
+		return x;
+	}
+
+	@Override
+	public int getTapeteY() {
+		// TODO Auto-generated method stub
+		return y;
+	}
+
+	@Override
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return groesse;
+	}
+
+	@Override
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return groesse;
 	}
 
 }

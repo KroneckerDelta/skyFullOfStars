@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.sky.start.RectStar;
+import de.sky.start.TapetenOject;
 import lombok.Data;
 
 @Data
@@ -56,7 +57,7 @@ public class Tapete {
 		return null;
 	}
 
-	public int calcX(MonitorPosition mp, RectStar star) {
+	public int calcX(MonitorPosition mp, TapetenOject star) {
 
 		Monitor m = mp.getMonitor();
 		int result = calculateMonitorPixel(star.getTapeteX(), mp.getLinksObenX(), m.getPhysicalWidth(),
@@ -80,7 +81,7 @@ public class Tapete {
 		return (int) px;
 	}
 
-	public int calcY(MonitorPosition mp, RectStar star) {
+	public int calcY(MonitorPosition mp, TapetenOject star) {
 		Monitor m = mp.getMonitor();
 
 		int result = calculateMonitorPixel(star.getTapeteY(), mp.getLinksObenY(), m.getPhysicalHeight(),

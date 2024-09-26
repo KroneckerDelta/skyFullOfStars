@@ -1,6 +1,5 @@
 package de.sky.sun.demo;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,10 +28,10 @@ public class Nebel extends Star {
 		}
 	}
 
-	@Override
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		g.drawImage(img, x, y, panel);
-		this.move();
-	}
+//	@Override
+//	public void draw(Graphics g) {
+//		// TODO Auto-generated method stub
+//		g.drawImage(img, x, y, panel);
+//		this.move();
+//	}
 }
