@@ -31,8 +31,7 @@ public class Tapete {
 	 * @param j
 	 */
 	public boolean isVisible(int vonLinks, int vonOben) {
-		
-		return true;
+		return this.monitore.stream().anyMatch( m -> m.monitorContainsTapetenPunkt(vonLinks, vonOben));
 		
 	}
 	/**
