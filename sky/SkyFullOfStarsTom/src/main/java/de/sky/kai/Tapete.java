@@ -41,7 +41,13 @@ public class Tapete {
 	 */
 	public Monitor whichMonitor(int vonLinks, int vonOben) {
 		
-		return this.monitore.get(0).getMonitor();
+		for (MonitorPosition monitorPosition : monitore) {
+			if (monitorPosition.monitorContainsTapetenPunkt(vonLinks, vonOben)) {
+				return monitorPosition.getMonitor();
+			}
+		}
+		
+		return null;
 	}
 
 }
